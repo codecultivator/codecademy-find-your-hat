@@ -1,10 +1,10 @@
 const chalk = require("chalk");
 
 class Field {
-  static hat = "^";
+  static hat = chalk.bgYellowBright("^");
   static hole = "O";
   static fieldCharacter = "░";
-  static pathCharacter = chalk.blueBright("*");
+  static pathCharacter = chalk.bgBlueBright("*");
 
   constructor(state, playerLocation = { y: 0, x: 0 }) {
     this.state = state;
@@ -14,7 +14,7 @@ class Field {
   print() {
     this.state.forEach((row, rowNum) => {
       if (this.playerLocation.y == rowNum) {
-        // shallow copy the row and put the player on it
+        // shallow copy the row and include the player/path
         const playerRow = row.map((column, colIndex) => {
           return this.playerLocation.x == colIndex
             ? Field.pathCharacter
@@ -75,7 +75,6 @@ class Field {
     }
 
     this.playerLocation = newPlayerLocation;
-    console.log(this.playerLocation);
   };
 }
 
@@ -85,7 +84,6 @@ module.exports = class GameFactory {
     rows.length = height;
 
     const maxHolesPerRow = (holeRowPercentage / 100) * width;
-    console.log(maxHolesPerRow);
 
     // build the field
     for (let rowNum = 0; rowNum < height; rowNum++) {
@@ -93,7 +91,6 @@ module.exports = class GameFactory {
 
       // add some holes
       const holesForRow = Math.floor(Math.random() * maxHolesPerRow) + 1;
-      console.log(holesForRow);
       for (let holeCounter = 0; holeCounter < holesForRow; holeCounter++) {
         const holePosition = Math.floor(Math.random() * width);
         rows[rowNum][holePosition] = Field.hole;

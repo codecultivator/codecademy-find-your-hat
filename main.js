@@ -9,7 +9,8 @@ let nextMove;
 do {
   field.print();
 
-  nextMove = prompt("Move? (u=up, d=down, l=left, r=right, q=quit)");
+  nextMove = prompt("Move? (u=up | d=down | l=left | r=right | q=quit)");
+
   if (nextMove == "q") break;
 
   try {
