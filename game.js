@@ -7,22 +7,22 @@ class Field {
   static pathCharacter = chalk.bgBlueBright("*");
 
   constructor(state, playerLocation = { y: 0, x: 0 }) {
-    this.state = state;
+    this.state = state; // state of board (not including the actual player location which is maintained separately)
     this.playerLocation = playerLocation;
   }
 
   print() {
-    this.state.forEach((row, rowNum) => {
+    this.state.forEach((stateRow, rowNum) => {
       if (this.playerLocation.y == rowNum) {
-        // shallow copy the row and include the player/path
-        const playerRow = row.map((column, colIndex) => {
+        // player is on this row of game state, so shallow copy the row and include the player/path
+        const playerAndStateRow = stateRow.map((column, colIndex) => {
           return this.playerLocation.x == colIndex
             ? Field.pathCharacter
             : column;
         });
-        console.log(playerRow.join(""));
+        console.log(playerAndStateRow.join(""));
       } else {
-        console.log(row.join(""));
+        console.log(stateRow.join(""));
       }
     });
   }
